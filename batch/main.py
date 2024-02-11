@@ -1,8 +1,8 @@
 from kopis_util import get_performance_list, get_performance_detail, get_faculty_detail
-from common.database.table.performance import insert_performance
-from common.database.table.performance_price import insert_prices
-from common.database.table.performance_datetime import insert_datetime
-from common.database.table.performance_person import insert_people
+from batch.database.table.performance import insert_performance
+from batch.database.table.performance_price import insert_prices
+from batch.database.table.performance_datetime import insert_datetime
+from batch.database.table.performance_person import insert_people
 
 
 def main():

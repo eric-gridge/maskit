@@ -20,12 +20,12 @@ def db_session_scope():
 
 
 if __name__ == "__main__":
-    from common.database.table.performance import Performance
-    from common.database.table.performance_price import PerformancePrice
-    from common.database.table.performance_datetime import PerformanceDatetime
-    from common.database.table.performance_person import PerformancePerson
+    from batch.database.table.performance import Performance
+    from batch.database.table.performance_price import PerformancePrice
+    from batch.database.table.performance_datetime import PerformanceDatetime
+    from batch.database.table.performance_person import PerformancePerson
 
-    from common.database.table import Base
+    from batch.database.table import Base
 
     Base.metadata.create_all(engine)
 

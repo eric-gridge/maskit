@@ -2,9 +2,9 @@ from datetime import datetime
 from sqlalchemy import func, insert, String, INT, TEXT, BIGINT
 from sqlalchemy.orm import mapped_column, Mapped
 
-from common.database.connection import db_session_scope
-from common.database.table import Base
-from common.parse_util import remove_dot, parse_age, parse_story, parse_enterprise
+from batch.database.connection import db_session_scope
+from batch.database.table import Base
+from batch.parse_util import remove_dot, parse_age, parse_story, parse_enterprise
 
 
 class Performance(Base):

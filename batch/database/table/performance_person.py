@@ -2,8 +2,8 @@ from datetime import datetime
 from sqlalchemy import func, insert, String, INT, BIGINT
 from sqlalchemy.orm import mapped_column, Mapped
 
-from common.database.connection import db_session_scope
-from common.database.table import Base
+from batch.database.connection import db_session_scope
+from batch.database.table import Base
 
 
 class PerformancePerson(Base):
