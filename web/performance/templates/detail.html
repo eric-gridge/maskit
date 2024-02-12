@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <hr/>
+    <h2>{{performance.name}}</h2>
+    <img src="{{performance.poster}}" alt="Error" width="200" height="200">
+    <h4>{{performance.faculty_name}}</h4>
+    <p>{{performance.time}}</p>
+    <p>{{performance.date_detail}}</p>
+    <p>{{performance.age_detail}}</p>
+    <p>{{performance.crew}}</p>
+    <p>{{performance.cast}}</p>
+</body>
+{% endblock %}

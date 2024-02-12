@@ -1,0 +1,9 @@
+# python 3.11.5
+requests==2.31.0
+pandas==2.2.0
+lxml==5.1.0
+sqlalchemy==2.0.25
+pymysql==1.1.0
+
+django==5.0.2
+mysqlclient==2.1.1
