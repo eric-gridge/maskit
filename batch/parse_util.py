@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 BOOLEAN = {
     "Y": True,
@@ -65,14 +66,26 @@ def parse_datetimes(time_str) -> list[str, str]:
 
     return results
 
+day_dict = {
+    "Monday": " (월)",
+    "Tuesday": " (화)",
+    "Wednesday": " (수)",
+    "Thursday": " (목)",
+    "Friday": " (금)",
+    "Saturday": " (토)",
+    "Sunday": " (일)"
+}
+def parse_date_detail(date_from_str: str, date_to_str: str) -> str:
+    date_from = datetime.strptime(date_from_str, "%Y.%m.%d")
+    date_from_day = day_dict[datetime.strftime(date_from, "%A")]
+    date_to = datetime.strptime(date_to_str,"%Y.%m.%d")
+    date_to_day = day_dict[datetime.strftime(date_to, "%A")]
+    return date_from_str + date_from_day + " ~ " + date_to_str + date_to_day
 
-def parse_enterprise(enterprise_a, enterprise_b):
-    if enterprise_a == enterprise_b:
-        return enterprise_a
-    else:
-        if enterprise_a == "" or enterprise_a == " ":
-            return enterprise_b
-        elif enterprise_b == "" or enterprise_b == " ":
-            return enterprise_a
-        else:
-            return enterprise_a + ", " + enterprise_b
+
+def parse_time(time: str):
+    return time.replace("HOL", "공휴일")
+
+
+if __name__ == "__main__":
+    parse_date_detail("2024.02.06", "2024.02.07")

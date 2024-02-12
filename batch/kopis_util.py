@@ -17,7 +17,7 @@ def get_performance_list() -> list[dict]:
         "eddate": "20240210",
         "newsql": "Y",
         "cpage": 1,
-        "rows": 10
+        "rows": 1000
     }
     response = requests.get(url, params=params)
     results = pd.read_xml(io.StringIO(response.text))
@@ -56,3 +56,8 @@ def get_faculty_detail(mt10id: str) -> dict:
 if __name__ == "__main__":
     pf_detail = get_performance_detail("PF132236")
     print(pf_detail)
+
+    ids = ["FC001884","FC003404","FC002076","FC001085","FC003798","FC001666","FC002969","FC003416","FC001678","FC003224"]
+    for i in ids:
+        fc_detail = get_faculty_detail(i)
+        print(fc_detail["seatscale"])

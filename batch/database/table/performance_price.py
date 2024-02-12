@@ -21,7 +21,7 @@ class PerformancePrice(Base):
 
 def insert_prices(performance_detail):
     prices = performance_detail.get("pcseguidance", "0")
-    prices = prices.split("\n")
+    prices = prices.split(", ")
     objs = [dict(performance_id=performance_detail["mt20id"], price=parse_price(price)) for price in prices]
     with db_session_scope() as session:
         session.execute(insert(PerformancePrice), objs)
