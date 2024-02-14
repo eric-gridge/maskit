@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+
+<!--    <details>-->
+
+        <form role="filter" method="GET" action="/alarm">
+            <p>{{choosed_name}}</p>
+
+            <p>공연장명:</p>
+            <input type="search" placeholder="공연장명" name="faculty_name" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <br>
+        <table>
+            {% for faculty in faculty_list %}
+
+            <tr>
+                <form>
+                <input type="text" name="choosed_name" value="{{faculty.faculty_name}}" readonly="readonly"></input>
+<!--                <p type="text" name="choosed_name" value="{{faculty.faculty_name}}">{{faculty.faculty_name}}</p>-->
+                <button class="btn btn-outline-success" type="submit">선택</button>
+                </form>
+                <br>
+            </tr>
+            {% endfor %}
+        </table>
+
+<!--    </details>-->
+
+
+</body>
+{% endblock %}
+<!--{% block script %}-->
+<!--<script>-->
+<!--    function myFunction(e) {-->
+<!--        faculty_name.textContent = e.target.textContent;-->
+<!--    }-->
+<!--    const faculty_name = document.querySelector("#faculty_name");-->
+<!--    const price_input = document.querySelector("#price_input");-->
+<!--    faculty_name.textContent = price_input.value;-->
+<!--    price_input.addEventListener("input", (event) => {-->
+<!--        faculty_name.textContent = event.target.value;-->
+<!--    });-->
+<!--</script>-->
+<!--{% endblock %}-->

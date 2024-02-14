@@ -5,10 +5,14 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from datetime import datetime
+
 from django.db import models
+# from django.db.backends.mysql.base import DatabaseWrapper
+# DatabaseWrapper.data_types['DateTimeField'] = datetime
 
 
-class Performance(models.Model):
+class Item(models.Model):
     id = models.BigAutoField(primary_key=True)
     performance_id = models.CharField(max_length=20)
     name = models.CharField(max_length=255)
@@ -22,58 +26,73 @@ class Performance(models.Model):
     time = models.TextField()
     poster = models.CharField(max_length=255)
     area = models.CharField(max_length=255)
+    daehakro = models.CharField(max_length=2)
     genre = models.CharField(max_length=255)
     state = models.CharField(max_length=20)
     price = models.CharField(max_length=255)
     crew = models.CharField(max_length=255)
     cast = models.CharField(max_length=255)
     story = models.TextField()
-    enterprise_p = models.CharField(max_length=255)
-    enterprise_a = models.CharField(max_length=255)
-    enterprise_h = models.CharField(max_length=255)
-    enterprise_s = models.CharField(max_length=255)
+    host = models.CharField(max_length=255)
+    plan = models.CharField(max_length=255)
     seats = models.IntegerField()
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
 
-    class Meta:
-        managed = False
-        db_table = 'performance'
+    # # def save(self, *args, **kwargs):
+    #     self.created_at = datetime.now()
+    #     self.updated_at = datetime.now()
+    #     return super(Item, self).save(*args, **kwargs)
 
 
-class PerformanceDatetime(models.Model):
+class Datetime(models.Model):
     id = models.BigAutoField(primary_key=True)
-    performance_id = models.CharField(max_length=20)
+    performance = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="performance_datetime")
     day = models.CharField(max_length=20)
     time = models.CharField(max_length=20)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
 
-    class Meta:
-        managed = False
-        db_table = 'performance_datetime'
+    # def save(self, *args, **kwargs):
+    #     self.created_at = datetime.now()
+    #     self.updated_at = datetime.now()
+    #     return super(Datetime, self).save(*args, **kwargs)
 
 
-class PerformancePerson(models.Model):
+class Person(models.Model):
     id = models.BigAutoField(primary_key=True)
-    performance_id = models.CharField(max_length=20)
+    performance = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="performance_person")
     name = models.CharField(max_length=255)
+    chosung = models.CharField(max_length=20)
     type = models.CharField(max_length=20)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
 
-    class Meta:
-        managed = False
-        db_table = 'performance_person'
+    # def save(self, *args, **kwargs):
+    #     self.created_at = datetime.now()
+    #     self.updated_at = datetime.now()
+    #     return super(Person, self).save(*args, **kwargs)
 
 
-class PerformancePrice(models.Model):
+class Price(models.Model):
     id = models.BigAutoField(primary_key=True)
-    performance_id = models.CharField(max_length=20)
+    performance = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="performance_price")
     price = models.IntegerField()
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
 
-    class Meta:
-        managed = False
-        db_table = 'performance_price'
+    # def save(self, *args, **kwargs):
+    #     self.created_at = datetime.now()
+    #     self.updated_at = datetime.now()
+    #     return super(Price, self).save(*args, **kwargs)
+
+
+class Faculty(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    faculty_id = models.CharField(max_length=20)
+    faculty_name = models.CharField(max_length=255)
+    area = models.CharField(max_length=20)
+    seatscale = models.IntegerField()
+    address = models.CharField(max_length=255)
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)

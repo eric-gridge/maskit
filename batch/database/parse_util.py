@@ -1,14 +1,6 @@
 import re
 from datetime import datetime
-
-BOOLEAN = {
-    "Y": True,
-    "N": False
-}
-
-
-def parse_boolean(item: str) -> bool:
-    return BOOLEAN.get(item, False)  # default -> N
+from jamo import h2j, j2hcj
 
 
 def remove_dot(item: str) -> str:
@@ -87,5 +79,48 @@ def parse_time(time: str):
     return time.replace("HOL", "공휴일")
 
 
+def parse_chosung(ch: str) -> str:
+    return j2hcj(h2j(ch))[0]
+
+
+def parse_names(names: str) -> list[str]:
+    results = []
+    if names.endswith(" 등"):
+        names = names[:-2]
+    names = names.split(", ")
+    for name in names:
+        if name == "" or name == " ":
+            continue
+        else:
+            results.append(name)
+    return results
+
+
+def parse_area(area: str) -> str:
+    area = area[:2]
+    if area == "부산" or area == "울산" or area == "대구":
+        area = "경상"
+    elif area == "대전":
+        area = "충청"
+    elif area == "광주":
+        area = "전라"
+    elif area == "인천":
+        area = "경기"
+    else:
+        area = ""
+    return area
+
+
+def parse_enterprise(a, b):
+    enterprise = set([a, b])
+    enterprise = [e for e in enterprise if len(e) > 2]
+    if len(enterprise) == 0:
+        return ""
+    else:
+        return ', '.join(enterprise)
+
+
 if __name__ == "__main__":
     parse_date_detail("2024.02.06", "2024.02.07")
+
+    print(parse_chosung("삼"))

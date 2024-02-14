@@ -1,26 +1,186 @@
 {% extends 'base.html' %}
 {% block content %}
 <body>
-    <hr/>
-    {% for performance in performances %}
-    <h2><a href="/performance/{{performance.id}}">{{performance.name}}</a></h2>
-    <h4>{{performance.faculty_name}}</h4>
-    <p>{{performance.time}}</p>
-    <p>{{performance.date_detail}}</p>
-    <p>{{performance.age_detail}}</p>
-    <p>{{performance.crew}}</p>
-    <p>{{performance.cast}}</p>
-    <hr />
-    {% endfor %}
+    <div style="float: left; width: 15%;">
+        <form role="filter" method="GET" action="/performance">
+            {% csrf_token %}
+            <details>
+                <summary>공연장</summary>
+                <p>공연장명:</p>
+                <input type="search" placeholder="공연장명" name="faculty_name" aria-label="Search">
+                <br><br>
+                <p>지역:</p>
+                <fieldset>
+                    <div>
+                    <input type="radio" id="area0" name="area" value="area0" checked />
+                    <label for="area0">전체</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="area1" name="area" value="area1" />
+                    <label for="area1">서울</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="area2" name="area" value="area2" />
+                    <label for="area2">경기</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="area3" name="area" value="area3" />
+                    <label for="area3">충청</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="area4" name="area" value="area4" />
+                    <label for="area4">경상</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="area5" name="area" value="area5" />
+                    <label for="area5">전라</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="area6" name="area" value="area6" />
+                    <label for="area6">강원</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="area7" name="area" value="area7" />
+                    <label for="area7">제주</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="area8" name="area" value="area8" />
+                    <label for="area8">대학로</label>
+                    </div>
+                </fieldset>
+<!--                <input type="search" placeholder="지역" name="area" aria-label="Search">-->
+            </details>
 
-    <h5>
-        {% if page is not 1 %}
-            <a href="?page={{page|add:-1}}">Prev</a>
-        {% endif %}
-        Page {{page}} of {{page_count}}
-        {% if page is not page_count %}
-            <a href="?page={{page|add:1}}">Next</a>
-        {% endif %}
-    </h5>
+            <details>
+                <summary>인물 정보</summary>
+                <p>연출자:</p>
+                <input type="search" placeholder="연출자" name="crew" aria-label="Search">
+                <br><br>
+                <p>출연진:</p>
+                <input type="search" placeholder="출연진" name="cast" aria-label="Search">
+                <br><br>
+                <p>주최/주관:</p>
+                <input type="search" placeholder="주최/주관" name="host" aria-label="Search">
+                <br><br>
+                <p>기획/제작:</p>
+                <input type="search" placeholder="기획/제작" name="plan" aria-label="Search">
+            </details>
+
+            <details>
+                <summary>공연 정보</summary>
+                <p>공연명, 프로그램명:</p>
+                <input type="search" placeholder="공연명, 프로그램명" name="name" aria-label="Search">
+                <br><br>
+                <p>장르:</p>
+                <fieldset>
+                    <div>
+                    <input type="radio" id="genre0" name="genre" value="genre0" checked />
+                    <label for="genre0">전체</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre1" name="genre" value="genre1" />
+                    <label for="genre1">연극</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre2" name="genre" value="genre2" />
+                    <label for="genre2">뮤지컬</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre3" name="genre" value="genre3" />
+                    <label for="genre3">한국음악(국악)</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre4" name="genre" value="genre4" />
+                    <label for="genre4">서양음악(클래식)</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre5" name="genre" value="genre5" />
+                    <label for="genre5">대중음악</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre6" name="genre" value="genre6" />
+                    <label for="genre6">무용(서양/한국무용)</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre7" name="genre" value="genre7" />
+                    <label for="genre7">대중무용</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre8" name="genre" value="genre8" />
+                    <label for="genre8">서커스/마술</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="genre9" name="genre" value="genre9" />
+                    <label for="genre9">복합</label>
+                    </div>
+                </fieldset>
+
+
+                <br><br>
+<!--                <p>가격대: 0(전체) ~ 500000</p>-->
+
+                <p>관람 연령 제한: 0(전체)~</p>
+                <input id="age_input" type="range" name="age" min="0" max="100" value="0" step="1" />
+                <p>Value: <output id="age_value"></output></p>
+
+                <p>가격대: 0(전체) ~ </p>
+                <input id="price_input" type="range" name="price" min="0" max="500000" value="0" step="1000" />
+                <p>Value: <output id="price_value"></output></p>
+
+            </details>
+
+            <br><br>
+
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+    <div style="float: left; width: 84%;">
+        <table border="1">
+            <tr>
+                <th>공연명</th>
+                <th>공연기간</th>
+                <th>공연장소</th>
+                <th>관람연령</th>
+                <th>티켓가격</th>
+                <th>예매하기</th>
+            </tr>
+            {% for performance in performances %}
+            <tr>
+                <td><a href="/performance/{{performance.id}}">{{performance.name}}</a></td>
+                <td>{{performance.date_detail}}</td>
+                <td>{{performance.faculty_name}}</td>
+                <td>{{performance.age_detail}}</td>
+                <td>{{performance.price}}</td>
+                <td>예매하기</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h5>
+            {% if page is not 1 %}
+                <a href="?page={{page|add:-1}}">Prev</a>
+            {% endif %}
+            Page {{page}} of {{page_count}}
+            {% if page is not page_count %}
+                <a href="?page={{page|add:1}}">Next</a>
+            {% endif %}
+        </h5>
+    </div>
 </body>
+{% endblock %}
+{% block script %}
+<script>
+    const age_value = document.querySelector("#age_value");
+    const age_input = document.querySelector("#age_input");
+    age_value.textContent = age_input.value;
+    age_input.addEventListener("input", (event) => {
+        age_value.textContent = event.target.value;
+    });
+
+    const price_value = document.querySelector("#price_value");
+    const price_input = document.querySelector("#price_input");
+    price_value.textContent = price_input.value;
+    price_input.addEventListener("input", (event) => {
+        price_value.textContent = event.target.value;
+    });
+</script>
 {% endblock %}

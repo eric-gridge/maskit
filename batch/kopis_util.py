@@ -5,6 +5,22 @@ import requests
 service_key = "558a2759bba4416eab2d0f4d1f22a773"
 
 
+def get_faculty_list() -> list[dict]:
+    url = "http://kopis.or.kr/openApi/restful/prfplc"
+    params = {
+        "service": service_key,
+        "stdate": "20240209",
+        "eddate": "20240210",
+        "newsql": "Y",
+        "cpage": 1,
+        "rows": 10000
+    }
+    response = requests.get(url, params=params)
+    results = pd.read_xml(io.StringIO(response.text))
+
+    return [results.loc[i].to_dict() for i in results.index]
+
+
 def get_performance_list() -> list[dict]:
     """
     newsql -> "Y" 로 설정해야 "area" 결과 반환

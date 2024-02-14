@@ -1,14 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 <body>
-    <hr/>
-    <h2>{{performance.name}}</h2>
-    <img src="{{performance.poster}}" alt="Error" width="200" height="200">
-    <h4>{{performance.faculty_name}}</h4>
-    <p>{{performance.time}}</p>
-    <p>{{performance.date_detail}}</p>
-    <p>{{performance.age_detail}}</p>
-    <p>{{performance.crew}}</p>
-    <p>{{performance.cast}}</p>
+<img src="{{performance.poster}}" alt="Error" width="300" >
+<table>
+    <tr>
+    <th>공연명</th>
+    <td>{{performance.name}}</td>
+</tr>
+    <tr>
+        <th>공연장소</th>
+        <td>{{performance.faculty_name}}</td>
+    </tr>
+    <tr>
+        <th>공연기간</th>
+        <td>{{performance.date_detail}}</td>
+    </tr>
+    <tr>
+        <th>공연시간</th>
+        <td>{{performance.time}}</td>
+    </tr>
+    <tr>
+        <th>관람연령</th>
+        <td>{{performance.age_detail}}</td>
+    </tr>
+    <tr>
+        <th>제작진</th>
+        <td>{{performance.crew}}</td>
+    </tr>
+    <tr>
+        <th>출연진</th>
+        <td>{{performance.cast}}</td>
+    </tr>
+</table>
 </body>
 {% endblock %}
